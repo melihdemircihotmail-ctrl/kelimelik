@@ -1,0 +1,35 @@
+KELİMELİK — telefona kurulum
+
+Bu klasör bir web uygulamasıdır. Ücretsiz bir yere yükleyip
+telefonunun ana ekranına eklediğinde normal bir uygulama gibi çalışır:
+kendi ikonu olur, tarayıcı çubuğu görünmez, internetsiz de açılır.
+
+1) YÜKLE
+   app.netlify.com/drop adresini bilgisayarda aç, bu ZIP dosyasını
+   sayfaya sürükle. Birkaç saniyede sana bir adres verir
+   (ör. https://xxxx.netlify.app). Adresi telefonuna gönder.
+
+   Alternatif: GitHub'da yeni bir depo aç, bu dosyaları yükle,
+   Settings > Pages bölümünden yayına al.
+
+2) ANA EKRANA EKLE
+   iPhone — Safari ile adresi aç, alttaki Paylaş simgesine dokun,
+            "Ana Ekrana Ekle" seç. (Chrome değil, Safari olmalı.)
+   Android — Chrome ile adresi aç, sağ üstteki üç noktaya dokun,
+            "Uygulamayı yükle" ya da "Ana ekrana ekle" seç.
+
+3) KULLAN
+   Karta dokun, çevrilir. Cevabı gördükten sonra üç seçenekten birini
+   işaretle. Kartı sağa kaydırırsan "biliyordum", sola kaydırırsan
+   "bilemedim" sayılır.
+
+YEDEK
+   Kartların telefonun kendi hafızasında durur, sunucuya gitmez.
+   Durum sekmesinden ara sıra yedek indir. Başka cihaza da
+   o dosyayla taşırsın.
+
+DOSYALAR
+   index.html    uygulamanın tamamı
+   manifest.json ana ekrana eklenince kullanılan ad ve ikon bilgisi
+   sw.js         internetsiz açılmayı sağlar
+   icon-*.png    uygulama ikonu
