@@ -1,4 +1,4 @@
-var CACHE = 'kelimelik-v1';
+var CACHE = 'kelimelik-v4';
 var FILES = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png', './icon-180.png'];
 
 self.addEventListener('install', function(e){

@@ -1,35 +1,32 @@
-KELİMELİK — telefona kurulum
+KELİMELİK — sürüm 4
 
-Bu klasör bir web uygulamasıdır. Ücretsiz bir yere yükleyip
-telefonunun ana ekranına eklediğinde normal bir uygulama gibi çalışır:
-kendi ikonu olur, tarayıcı çubuğu görünmez, internetsiz de açılır.
+Kurulum
+  Bu dosyaları GitHub Pages ya da app.netlify.com/drop ile yayına al,
+  telefonda aç, ana ekrana ekle.
+  iPhone: Safari > Paylaş > Ana Ekrana Ekle
+  Android: Chrome > üç nokta > Uygulamayı yükle
 
-1) YÜKLE
-   app.netlify.com/drop adresini bilgisayarda aç, bu ZIP dosyasını
-   sayfaya sürükle. Birkaç saniyede sana bir adres verir
-   (ör. https://xxxx.netlify.app). Adresi telefonuna gönder.
+Sürüm 4'te yeni olanlar
+  - Örnek cümlenin Türkçe çevirisi de kartta duruyor
+  - Ters modda ön yüzde çeviri gösteriliyor (kelimeyi ele vermeden ipucu)
+  - Toplu eklemede dördüncü bölüm cümle çevirisi sayılıyor
 
-   Alternatif: GitHub'da yeni bir depo aç, bu dosyaları yükle,
-   Settings > Pages bölümünden yayına al.
+Sürüm 3'te gelenler
+  - Ses ve örnek cümle artık kartın ön yüzünde
+  - Cevabı ele verecekse örnek cümledeki kelime gizleniyor
+  - Karta emoji simgesi eklenebiliyor
+  - Kademe sistemi: bir gruptaki kelimeler ezberlenmeden yenileri açılmıyor
+  - "Kademeyi tazele" ile gruptaki bütün kelimeler bir kez daha sorulabiliyor
 
-2) ANA EKRANA EKLE
-   iPhone — Safari ile adresi aç, alttaki Paylaş simgesine dokun,
-            "Ana Ekrana Ekle" seç. (Chrome değil, Safari olmalı.)
-   Android — Chrome ile adresi aç, sağ üstteki üç noktaya dokun,
-            "Uygulamayı yükle" ya da "Ana ekrana ekle" seç.
+Kademe nasıl çalışıyor
+  Kelimeler eklenme sırasına göre gruplara ayrılır (varsayılan 20'şerli).
+  Bir kelime iki kez üst üste doğru bilinip tekrar aralığı 6 güne çıkınca
+  ezberlenmiş sayılır. Gruptaki herkes ezberlenmeden bir sonraki grup açılmaz.
+  Önceki grupların zamanı gelen tekrarları arada gelmeye devam eder.
+  Ezberlediğin bir kelimeyi sonradan unutursan grup geri açılır ve yeni
+  kelime akışı, o kelimeyi tazeleyene kadar durur.
+  Grup boyutunu Durum sekmesinden değiştirebilirsin.
 
-3) KULLAN
-   Karta dokun, çevrilir. Cevabı gördükten sonra üç seçenekten birini
-   işaretle. Kartı sağa kaydırırsan "biliyordum", sola kaydırırsan
-   "bilemedim" sayılır.
-
-YEDEK
-   Kartların telefonun kendi hafızasında durur, sunucuya gitmez.
-   Durum sekmesinden ara sıra yedek indir. Başka cihaza da
-   o dosyayla taşırsın.
-
-DOSYALAR
-   index.html    uygulamanın tamamı
-   manifest.json ana ekrana eklenince kullanılan ad ve ikon bilgisi
-   sw.js         internetsiz açılmayı sağlar
-   icon-*.png    uygulama ikonu
+Güncelleme
+  Dosyaları değiştirdiğinde sw.js içindeki CACHE değerini artır
+  (kelimelik-v4 -> kelimelik-v5). Yoksa telefon eski sürümü gösterir.

@@ -24,27 +24,19 @@
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   html,body{margin:0;padding:0;height:100%}
-  body{
-    background:var(--bg);color:var(--text);font-family:var(--sans);
-    font-size:16px;overscroll-behavior-y:none;
-    -webkit-font-smoothing:antialiased;
-  }
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;
+    overscroll-behavior-y:none;-webkit-font-smoothing:antialiased}
   #app{min-height:100%;display:flex;flex-direction:column;
     padding-top:env(safe-area-inset-top);padding-bottom:var(--nav)}
-  header{
-    padding:10px 16px;border-bottom:1px solid var(--line);background:var(--surface);
-    display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:20
-  }
+  header{padding:10px 16px;border-bottom:1px solid var(--line);background:var(--surface);
+    display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:20}
   .brand{font-family:var(--serif);font-size:19px;letter-spacing:-.3px}
   main{flex:1;padding:16px;max-width:640px;width:100%;margin:0 auto}
 
-  select,input,textarea{
-    width:100%;background:var(--bg);border:1px solid var(--line);color:var(--text);
-    border-radius:11px;padding:12px;font-size:16px;font-family:var(--sans);outline:none
-  }
+  select,input,textarea{width:100%;background:var(--bg);border:1px solid var(--line);color:var(--text);
+    border-radius:11px;padding:12px;font-size:16px;font-family:var(--sans);outline:none}
   textarea{resize:vertical;line-height:1.55}
-  select:focus-visible,input:focus-visible,textarea:focus-visible,button:focus-visible{
-    outline:2px solid var(--brass);outline-offset:2px}
+  :focus-visible{outline:2px solid var(--brass);outline-offset:2px}
   ::placeholder{color:#8FA3AC88}
   label span{display:block;color:var(--dim);font-size:13px;margin-bottom:6px}
   label{display:block;margin-bottom:16px}
@@ -58,38 +50,71 @@
   .b-wide{width:100%;padding:15px}
   .row{display:flex;gap:8px;flex-wrap:wrap}
 
-  /* --- kart --- */
-  .stage{perspective:1400px;touch-action:pan-y}
-  .card{position:relative;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.2,.8,.25,1);
-    min-height:56vh}
-  .card.back{transform:rotateY(180deg)}
-  .face{
-    background:var(--paper);border:1px solid var(--paperEdge);border-radius:18px;
-    min-height:56vh;padding:30px 24px;display:flex;flex-direction:column;
-    align-items:center;justify-content:center;text-align:center;
-    box-shadow:0 20px 36px -24px #000;
-    backface-visibility:hidden;-webkit-backface-visibility:hidden
-  }
-  .face.b{position:absolute;inset:0;transform:rotateY(180deg)}
-  .word{font-family:var(--serif);font-size:34px;line-height:1.25;color:var(--ink);word-break:break-word}
-  .word.sm{font-size:27px}
-  .hint{margin-top:16px;font-size:13px;color:#8B8071}
-  .ex{margin-top:16px;padding-top:14px;border-top:1px solid var(--paperEdge);
-    font-size:15px;line-height:1.6;color:#6E6357;font-style:italic;max-width:420px}
-  .say{margin-top:16px;background:transparent;border:1px solid var(--paperEdge);color:#6E6357;
-    border-radius:999px;padding:8px 14px;font-size:13px}
+  .modes{display:flex;gap:6px;margin-bottom:10px}
+  .modes button{flex:1;background:var(--surface);border:1px solid var(--line);color:var(--dim);
+    padding:9px 4px;font-size:13px;border-radius:10px}
+  .modes button.on{background:var(--surface2);color:var(--text);border-color:var(--brass)}
 
-  .grades{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:14px}
-  .g{border-radius:12px;padding:13px 4px;flex-direction:column;gap:2px;border-width:1px;border-style:solid}
+  .kademe{background:var(--surface);border:1px solid var(--line);border-radius:11px;
+    padding:9px 12px;margin-bottom:10px;font-size:12.5px;color:var(--dim)}
+  .kademe .t{display:flex;justify-content:space-between;margin-bottom:7px}
+  .track{height:4px;background:var(--line);border-radius:3px;overflow:hidden}
+  .fill{height:100%;background:var(--mint);border-radius:3px}
+
+  .stage{perspective:1400px;touch-action:pan-y}
+  .card{position:relative;transform-style:preserve-3d;
+    transition:transform .5s cubic-bezier(.2,.8,.25,1);min-height:50vh}
+  .card.back{transform:rotateY(180deg)}
+  .face{background:var(--paper);border:1px solid var(--paperEdge);border-radius:18px;
+    min-height:50vh;padding:26px 20px;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;text-align:center;
+    box-shadow:0 20px 36px -24px #000;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+  .face.b{position:absolute;inset:0;transform:rotateY(180deg)}
+  .word{font-family:var(--serif);font-size:33px;line-height:1.25;color:var(--ink);word-break:break-word}
+  .word.sm{font-size:26px}
+  .simge{font-size:46px;line-height:1;margin-bottom:14px}
+  .hint{margin-top:14px;font-size:12.5px;color:#9A8F7E}
+  .ex{margin-top:14px;padding-top:13px;border-top:1px solid var(--paperEdge);
+    font-size:15px;line-height:1.6;color:#6E6357;font-style:italic;max-width:420px}
+  .ex b{color:#A08A55;font-style:normal;letter-spacing:1px}
+  .ex .tr{display:block;margin-top:7px;font-style:normal;color:#8A8071;font-size:14px}
+  .say{margin-top:14px;background:#fff;border:1px solid var(--paperEdge);
+    color:#6E6357;border-radius:999px;padding:8px 15px;font-size:13px}
+  .say.mini{margin-top:10px;padding:6px 12px;font-size:12px;background:transparent}
+
+  .panel{background:var(--paper);border:1px solid var(--paperEdge);border-radius:18px;
+    min-height:50vh;padding:24px 18px;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;text-align:center;box-shadow:0 20px 36px -24px #000}
+  .ask{font-size:12.5px;color:#9A8F7E;margin-bottom:10px;letter-spacing:.3px}
+  .panel input{background:#fff;border:1px solid var(--paperEdge);color:var(--ink);
+    font-size:20px;text-align:center;font-family:var(--serif);max-width:340px}
+  .verdict{margin-top:14px;font-size:15px;line-height:1.6}
+  .ok{color:#3E7D5E} .no{color:#A94B48}
+  .answer{font-family:var(--serif);font-size:25px;color:var(--ink);margin-top:6px}
+
+  .bigsay{width:106px;height:106px;border-radius:50%;background:#fff;
+    border:1px solid var(--paperEdge);color:#6E6357;font-size:14px;flex-direction:column;gap:2px}
+  .slots{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:18px}
+  .slot{width:32px;height:42px;border-bottom:2px solid #C9BFAC;display:flex;align-items:center;
+    justify-content:center;font-family:var(--serif);font-size:23px;color:var(--ink);cursor:pointer}
+  .slot.sp{border:none;width:13px}
+  .pool{display:flex;flex-wrap:wrap;gap:7px;justify-content:center}
+  .chip{width:39px;height:45px;border-radius:9px;background:#fff;border:1px solid var(--paperEdge);
+    color:var(--ink);font-family:var(--serif);font-size:22px;box-shadow:0 2px 0 #D9CFBC}
+  .chip.used{opacity:.22;pointer-events:none;box-shadow:none}
+  .picks{display:flex;flex-wrap:wrap;gap:6px;margin:-8px 0 16px}
+  .picks button{background:var(--surface);border:1px solid var(--line);padding:7px 9px;font-size:19px;border-radius:9px}
+
+  .grades{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px}
+  .grades.two{grid-template-columns:1fr 1fr}
+  .g{border-radius:12px;padding:12px 4px;flex-direction:column;gap:2px;border-width:1px;border-style:solid}
   .g b{font-size:14.5px;font-weight:600}
   .g i{font-size:11.5px;opacity:.72;font-style:normal}
   .g1{background:#D2726F14;border-color:#D2726F55;color:var(--rose)}
   .g2{background:#E0A93B14;border-color:#E0A93B55;color:var(--brass)}
   .g3{background:#6FC2A014;border-color:#6FC2A055;color:var(--mint)}
 
-  .meta{display:flex;justify-content:space-between;font-size:13px;color:var(--dim);margin-bottom:12px}
-
-  /* --- liste --- */
+  .meta{display:flex;justify-content:space-between;font-size:13px;color:var(--dim);margin-bottom:10px}
   .list{border:1px solid var(--line);border-radius:12px;overflow:hidden}
   .item{padding:13px 14px;background:var(--surface);display:flex;gap:10px;align-items:flex-start}
   .item+.item{border-top:1px solid var(--line)}
@@ -97,8 +122,8 @@
   .item .k{font-size:14.5px;color:var(--dim);margin-top:2px}
   .item .e{font-size:13.5px;color:#8FA3ACcc;margin-top:5px;font-style:italic}
   .item .s{font-size:12px;color:#8FA3AC99;margin-top:6px}
+  .em{font-size:22px;line-height:1.2}
   .grow{flex:1;min-width:0}
-
   .tile{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
   .tile .n{font-family:var(--serif);font-size:26px}
   .tile .l{font-size:13px;color:var(--dim);margin-top:2px}
@@ -109,30 +134,28 @@
   .bars .t{font-size:11.5px;color:var(--dim)}
   p.note{color:var(--dim);font-size:13.5px;line-height:1.7}
 
-  /* --- alt menü --- */
-  nav{
-    position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;
-    background:var(--surface);border-top:1px solid var(--line);
-    padding-bottom:env(safe-area-inset-bottom)
-  }
-  nav button{flex:1;flex-direction:column;gap:3px;background:none;border:none;
-    color:var(--dim);padding:9px 0 8px;font-size:11px;border-radius:0}
+  nav{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;background:var(--surface);
+    border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+  nav button{flex:1;flex-direction:column;gap:3px;background:none;border:none;color:var(--dim);
+    padding:9px 0 8px;font-size:11px;border-radius:0}
   nav button.on{color:var(--text)}
   nav button.on .d{background:var(--brass)}
   nav .d{width:18px;height:2px;border-radius:2px;background:transparent}
   nav svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.7;
     stroke-linecap:round;stroke-linejoin:round}
 
-  #toast{position:fixed;left:50%;transform:translateX(-50%);
-    bottom:calc(var(--nav) + 14px);background:var(--surface2);border:1px solid var(--line);
-    color:var(--text);padding:11px 18px;border-radius:999px;font-size:14px;z-index:50;
-    max-width:86%;text-align:center;opacity:0;pointer-events:none;transition:opacity .2s}
+  #toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(var(--nav) + 14px);
+    background:var(--surface2);border:1px solid var(--line);color:var(--text);padding:11px 18px;
+    border-radius:999px;font-size:14px;z-index:50;max-width:86%;text-align:center;
+    opacity:0;pointer-events:none;transition:opacity .2s}
   #toast.show{opacity:1}
-
-  .empty{text-align:center;padding:56px 16px;color:var(--dim);font-size:15px;line-height:1.7}
+  .empty{text-align:center;padding:52px 16px;color:var(--dim);font-size:15px;line-height:1.7}
   .hidden{display:none !important}
   .sheet{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:14px}
-  @media (prefers-reduced-motion:reduce){.card{transition:none}}
+  .spin{display:inline-block;width:14px;height:14px;border:2px solid currentColor;
+    border-top-color:transparent;border-radius:50%;animation:sp .7s linear infinite}
+  @keyframes sp{to{transform:rotate(360deg)}}
+  @media (prefers-reduced-motion:reduce){.card{transition:none}.spin{animation:none}}
 </style>
 </head>
 <body>
@@ -141,455 +164,655 @@
     <span class="brand">Kelimelik</span>
     <select id="deckSel" style="width:auto;flex:1;padding:8px 10px;font-size:14px;background:var(--surface2)"></select>
     <button class="b-quiet" id="deckBtn" aria-label="Deste ayarları">
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 20V7a2 2 0 0 1 2-2h3l2 2h7a2 2 0 0 1 2 2v11z"/><path d="M12 11v6M9 14h6"/></svg>
-    </button>
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 20V7a2 2 0 0 1 2-2h3l2 2h7a2 2 0 0 1 2 2v11z"/><path d="M12 11v6M9 14h6"/></svg></button>
     <button class="b-quiet" id="revBtn" aria-label="Ters çevir">
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
-    </button>
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></button>
   </header>
   <main id="main"></main>
 </div>
-
 <nav id="nav"></nav>
 <div id="toast"></div>
 
 <script>
-/* ============ veri ============ */
+/* ================= veri ================= */
 var DAY = 86400000, KEY = 'kelimelik-v1';
-var S = { decks: [], cards: [], active: null, newLimit: 20, reverse: false };
-var view = 'study', queue = [], flipped = false, doneCount = 0, editing = null;
+var S = { decks:[], cards:[], active:null, batch:20, reverse:false, mode:'kart',
+          ai:{ key:'', model:'claude-haiku-4-5-20251001' } };
+var view='study', queue=[], flipped=false, shown=false, doneCount=0, editing=null;
+var typedOK=null, harf=null, harfKey='', busy=false, lastBatch=-1;
 
-function uid(){ return Math.random().toString(36).slice(2,10) + Date.now().toString(36).slice(-4); }
-function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g, function(c){
+function uid(){ return Math.random().toString(36).slice(2,10)+Date.now().toString(36).slice(-4); }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){
   return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
 
 function load(){
-  try {
-    var raw = localStorage.getItem(KEY);
-    if (raw) { var d = JSON.parse(raw);
-      S.decks = d.decks || []; S.cards = d.cards || [];
-      S.active = d.active; S.newLimit = d.newLimit || 20; S.reverse = !!d.reverse; }
-  } catch(e){}
-  if (!S.decks.length) {
-    var id = uid();
-    S.decks = [{ id:id, name:'İngilizce', lang:'en-US' }];
-    S.active = id;
-    S.cards = [
-      mk(id,'resilience','dayanıklılık, direnç','Social resilience depends on strong family ties.'),
-      mk(id,'threshold','eşik, sınır değeri','The threshold for intervention was lowered.'),
-      mk(id,'to advocate','savunmak, öne çıkarmak','She advocates for stronger child protection laws.')
-    ];
+  try{ var raw=localStorage.getItem(KEY);
+    if(raw){ var d=JSON.parse(raw);
+      S.decks=d.decks||[]; S.cards=d.cards||[]; S.active=d.active;
+      S.batch=d.batch||d.newLimit||20; S.reverse=!!d.reverse; S.mode=d.mode||'kart';
+      if(d.ai){ S.ai.key=d.ai.key||''; S.ai.model=d.ai.model||S.ai.model; } }
+  }catch(e){}
+  S.cards.forEach(function(c){ if(c.emoji===undefined) c.emoji=''; if(c.exTr===undefined) c.exTr=''; });
+  if(!S.decks.length){
+    var id=uid();
+    S.decks=[{id:id,name:'İngilizce',lang:'en-US'}]; S.active=id;
+    S.cards=[ mk(id,'resilience','dayanıklılık','Social resilience depends on strong family ties.','🌿','Toplumsal dayanıklılık güçlü aile bağlarına dayanır.'),
+              mk(id,'threshold','eşik','The threshold for intervention was lowered.','🚪','Müdahale eşiği aşağı çekildi.'),
+              mk(id,'to advocate','savunmak','She advocates for stronger child protection laws.','📢','Daha güçlü çocuk koruma yasalarını savunuyor.') ];
     save();
   }
-  if (!S.decks.some(function(d){ return d.id === S.active; })) S.active = S.decks[0].id;
+  if(!S.decks.some(function(d){return d.id===S.active;})) S.active=S.decks[0].id;
 }
-function save(){
-  try { localStorage.setItem(KEY, JSON.stringify(S)); }
-  catch(e){ toast('Kaydedilemedi. Cihaz depolaması dolu olabilir.'); }
-}
-function mk(deckId, front, back, ex){
-  return { id:uid(), deckId:deckId, front:front, back:back, example:ex||'',
-    ease:2.5, interval:0, reps:0, lapses:0, status:'new', due:Date.now(), created:Date.now() };
-}
-function deck(){ return S.decks.filter(function(d){ return d.id===S.active; })[0]; }
-function myCards(){ return S.cards.filter(function(c){ return c.deckId===S.active; }); }
+function save(){ try{ localStorage.setItem(KEY,JSON.stringify(S)); }
+  catch(e){ toast('Kaydedilemedi. Cihaz depolaması dolu olabilir.'); } }
+function mk(deckId,f,b,ex,em,tr){ return {id:uid(),deckId:deckId,front:f,back:b,example:ex||'',exTr:tr||'',emoji:em||'',
+  ease:2.5,interval:0,reps:0,lapses:0,status:'new',due:Date.now(),created:Date.now()}; }
+function deck(){ return S.decks.filter(function(d){return d.id===S.active;})[0]; }
+function myCards(){ return S.cards.filter(function(c){return c.deckId===S.active;}); }
+function cur(){ return S.cards.filter(function(x){return x.id===queue[0];})[0]; }
 
-/* ============ aralıklı tekrar ============ */
+/* ============ SM-2 ============ */
+var Q = { again:1, good:3, easy:5 };
 function schedule(c, grade, now){
-  var o = {}; for (var k in c) o[k]=c[k];
-  var ease = o.ease || 2.5;
-  if (grade === 'again'){
-    o.ease = Math.max(1.3, ease-0.2); o.interval = 0; o.reps = 0;
-    o.lapses = (o.lapses||0)+1; o.status = 'learning'; o.due = now; return o;
-  }
-  var reps = (o.reps||0)+1, iv;
-  if (grade === 'good'){
-    iv = (o.status==='new'||o.status==='learning') ? (reps<=1?1:3)
-       : Math.max(1, Math.round((o.interval||1)*ease));
-  } else {
-    ease = Math.min(3.2, ease+0.15);
-    iv = (o.status==='new'||o.status==='learning') ? 4
-       : Math.max(1, Math.round((o.interval||1)*ease*1.3));
-  }
-  o.ease = ease; o.reps = reps; o.interval = Math.min(iv,365);
-  o.status = 'review'; o.due = now + o.interval*DAY;
+  var o={}; for(var k in c) o[k]=c[k];
+  var q=Q[grade], ef=o.ease||2.5;
+  ef = Math.max(1.3, ef + (0.1 - (5-q)*(0.08 + (5-q)*0.02)));
+  o.ease = Math.round(ef*100)/100;
+  if(q<3){ o.reps=0; o.interval=0; o.lapses=(o.lapses||0)+1;
+    o.status='learning'; o.due=now; return o; }
+  var reps=(o.reps||0)+1;
+  o.interval = reps===1 ? 1 : reps===2 ? 6 : Math.max(1,Math.round((o.interval||1)*o.ease));
+  o.interval = Math.min(o.interval,365);
+  o.reps=reps; o.status='review'; o.due=now+o.interval*DAY;
   return o;
 }
-function ivLabel(c, grade){
-  if (grade==='again') return 'birazdan';
-  var i = schedule(c, grade, Date.now()).interval;
-  if (i < 30) return i + ' gün';
-  if (i < 365) return Math.round(i/30) + ' ay';
-  return (i/365).toFixed(1) + ' yıl';
+function ivLabel(c,grade){
+  if(grade==='again') return 'birazdan';
+  var i=schedule(c,grade,Date.now()).interval;
+  if(i<30) return i+' gün';
+  if(i<365) return Math.round(i/30)+' ay';
+  return (i/365).toFixed(1)+' yıl';
 }
 
-/* ============ arayüz yardımcıları ============ */
-var tEl = document.getElementById('toast'), tTimer;
-function toast(msg){
-  tEl.textContent = msg; tEl.classList.add('show');
-  clearTimeout(tTimer); tTimer = setTimeout(function(){ tEl.classList.remove('show'); }, 2600);
+/* ============ kademe ============ */
+/* Bir kart iki kez üst üste doğru bilinince (aralık 6 güne çıkınca) ezberlenmiş sayılır. */
+function ezber(c){ return c.status==='review' && c.reps>=2; }
+function ordered(){ return myCards().slice().sort(function(a,b){return a.created-b.created;}); }
+function batchInfo(){
+  var all=ordered(), size=S.batch||20, n=Math.ceil(all.length/size);
+  for(var i=0;i<n;i++){
+    var sl=all.slice(i*size,(i+1)*size);
+    if(!sl.every(ezber)) return { i:i, cards:sl, done:sl.filter(ezber).length, size:sl.length,
+      locked:Math.max(0,all.length-(i+1)*size), allDone:false };
+  }
+  var last=Math.max(0,n-1), sl2=all.slice(last*size);
+  return { i:last, cards:sl2, done:sl2.length, size:sl2.length, locked:0, allDone:true };
 }
+
+/* ============ yardimcilar ============ */
+var tEl=document.getElementById('toast'), tTimer;
+function toast(m){ tEl.textContent=m; tEl.classList.add('show');
+  clearTimeout(tTimer); tTimer=setTimeout(function(){ tEl.classList.remove('show'); },3200); }
 function speak(text){
-  var d = deck();
-  if (!d || !d.lang || !window.speechSynthesis || !text) return;
-  try { speechSynthesis.cancel();
-    var u = new SpeechSynthesisUtterance(text); u.lang = d.lang; u.rate = .92;
-    speechSynthesis.speak(u);
-  } catch(e){}
+  var d=deck();
+  if(!d||!d.lang||!window.speechSynthesis||!text) return;
+  try{ speechSynthesis.cancel();
+    var u=new SpeechSynthesisUtterance(text); u.lang=d.lang; u.rate=.9; speechSynthesis.speak(u);
+  }catch(e){}
 }
-function go(v){ view = v; flipped = false; editing = null; render(); window.scrollTo(0,0); }
+function go(v){ view=v; resetCardState(); render(); window.scrollTo(0,0); }
+function resetCardState(){ flipped=false; shown=false; typedOK=null; harf=null; harfKey=''; editing=null; }
+function norm(s){ return String(s||'').toLocaleLowerCase('tr')
+  .replace(/[.,;:!?"'()\[\]\-–_]/g,' ').replace(/\s+/g,' ').trim(); }
+function alts(s){ return String(s||'').split(/[,;/]| veya /).map(norm).filter(Boolean); }
+var FOLD={'ı':'i','i':'i','İ':'i','ş':'s','ğ':'g','ü':'u','ö':'o','ç':'c',
+          'â':'a','î':'i','û':'u','é':'e','ñ':'n','ß':'s'};
+function fold(s){ return String(s||'').replace(/[ıiİşğüöçâîûéñß]/g,function(m){return FOLD[m]||m;}); }
+function lev(a,b){
+  var m=a.length,n=b.length,i,j,prev=[],curr=[];
+  if(!m) return n; if(!n) return m;
+  for(j=0;j<=n;j++) prev[j]=j;
+  for(i=1;i<=m;i++){ curr[0]=i;
+    for(j=1;j<=n;j++) curr[j]=Math.min(prev[j]+1,curr[j-1]+1,prev[j-1]+(a[i-1]===b[j-1]?0:1));
+    prev=curr.slice(); }
+  return prev[n];
+}
+function checkTyped(input, expected){
+  var a=norm(input); if(!a) return false;
+  var list=alts(expected);
+  if(list.indexOf(a)>-1) return true;
+  var fa=fold(a), fl=list.map(fold);
+  if(fl.indexOf(fa)>-1) return true;
+  for(var i=0;i<fl.length;i++) if(lev(fa,fl[i])<=1) return 'near';
+  return false;
+}
+function firstAlt(s){ return String(s||'').split(/[,;/]/)[0].trim(); }
+function askSide(c){ return S.reverse ? c.back : c.front; }
+function ansSide(c){ return S.reverse ? c.front : c.back; }
+function rx(s){ return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'); }
+/* örnek cümlede hedef kelimeyi gizle */
+function maskEx(text, word){
+  if(!text||!word) return esc(text||'');
+  var core=String(word).replace(/^to\s+/i,'').trim().split(/\s+/).pop();
+  if(core.length<3) return esc(text);
+  var stem=core.length>5?core.slice(0,core.length-2):core;
+  var out=esc(text).replace(new RegExp(rx(esc(stem))+'[\\wçğıöşüÇĞİÖŞÜ]*','gi'),'<b>____</b>');
+  return out;
+}
+/* where: front = yabanci cumle acik, front-hide = cevabi ele vermeyen hali, back = cumle + ceviri */
+function exHTML(c, where){
+  if(!c.example && !c.exTr) return '';
+  if(where==='front-hide'){
+    if(c.exTr) return '<div class="ex">'+esc(c.exTr)+'</div>';
+    return c.example?'<div class="ex">'+maskEx(c.example,c.front)+'</div>':'';
+  }
+  if(where==='front') return c.example?'<div class="ex">'+esc(c.example)+'</div>':'';
+  return '<div class="ex">'+esc(c.example)+
+    (c.exTr?'<span class="tr">'+esc(c.exTr)+'</span>':'')+'</div>';
+}
 
-/* ============ oturum kuyruğu ============ */
+/* ============ oturum ============ */
 function build(){
-  var now = Date.now(), all = myCards();
-  var due = all.filter(function(c){ return c.status!=='new' && c.due<=now; });
-  var fresh = all.filter(function(c){ return c.status==='new'; }).slice(0, S.newLimit);
-  queue = due.concat(fresh).sort(function(){ return Math.random()-.5; })
-             .map(function(c){ return c.id; });
-  flipped = false;
+  var now=Date.now(), bi=batchInfo(), inB={};
+  bi.cards.forEach(function(c){ inB[c.id]=1; });
+  var due=myCards().filter(function(c){ return c.status!=='new' && c.due<=now; });
+  var fresh=bi.cards.filter(function(c){ return c.status==='new'; });
+  queue=due.concat(fresh).sort(function(){return Math.random()-.5;}).map(function(c){return c.id;});
+  resetCardState();
 }
 function answer(grade){
-  var c = S.cards.filter(function(x){ return x.id===queue[0]; })[0];
-  if (!c) return;
-  var upd = schedule(c, grade, Date.now());
-  for (var k in upd) c[k] = upd[k];
+  var c=cur(); if(!c) return;
+  var before=batchInfo().i;
+  var u=schedule(c,grade,Date.now()); for(var k in u) c[k]=u[k];
   queue = grade==='again' ? queue.slice(1).concat([c.id]) : queue.slice(1);
-  flipped = false; doneCount++; save(); render();
+  resetCardState(); doneCount++; save();
+  var bi=batchInfo();
+  if(bi.i>before && !bi.allDone){
+    queue=[]; toast('Kademe '+(before+1)+' tamam. '+bi.size+' yeni kelime açıldı.');
+  }
+  render();
 }
 
-/* ============ ekranlar ============ */
+/* ============ cizim ============ */
+var NAVS=[
+ ['study','Çalış','<path d="M12 3l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/>'],
+ ['add','Ekle','<path d="M12 5v14M5 12h14"/>'],
+ ['list','Kartlar','<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 10h10M7 14h6"/>'],
+ ['stats','Durum','<path d="M5 20V10M12 20V4M19 20v-7"/>']];
+var MODES=[['kart','Kart'],['yaz','Yaz'],['dinle','Dinle'],['harf','Harf']];
+var LANGS=[['en-US','İngilizce'],['ar-SA','Arapça'],['de-DE','Almanca'],['fr-FR','Fransızca'],
+  ['es-ES','İspanyolca'],['ru-RU','Rusça'],['tr-TR','Türkçe'],['','Belirtme']];
+var PICKS=['📘','💡','🏠','❤️','⚡','🌱','⏳','⚖️','🔒','🗣️','🔥','💧','🧠','👁️','🤝','🚪','📈','🎯'];
+
 function render(){
-  var d = deck();
-  document.getElementById('deckSel').innerHTML = S.decks.map(function(x){
-    return '<option value="'+x.id+'"'+(x.id===S.active?' selected':'')+'>'+esc(x.name)+'</option>'; }).join('');
-  document.getElementById('revBtn').style.color = S.reverse ? 'var(--brass)' : 'var(--dim)';
-  renderNav();
-  var m = document.getElementById('main');
-  if (!d) { m.innerHTML = '<div class="empty">Deste yok.</div>'; return; }
-  if (view==='study') study(m);
-  else if (view==='add') addView(m);
-  else if (view==='list') listView(m);
+  var d=deck();
+  document.getElementById('deckSel').innerHTML=S.decks.map(function(x){
+    return '<option value="'+x.id+'"'+(x.id===S.active?' selected':'')+'>'+esc(x.name)+'</option>';}).join('');
+  document.getElementById('revBtn').style.color=S.reverse?'var(--brass)':'var(--dim)';
+  document.getElementById('nav').innerHTML=NAVS.map(function(n){
+    return '<button class="'+(view===n[0]?'on':'')+'" data-go="'+n[0]+'">'+
+      '<svg viewBox="0 0 24 24">'+n[2]+'</svg><span>'+n[1]+'</span><span class="d"></span></button>';}).join('');
+  var m=document.getElementById('main');
+  if(!d){ m.innerHTML='<div class="empty">Deste yok.</div>'; return; }
+  if(view==='study') study(m);
+  else if(view==='add') addView(m);
+  else if(view==='list') listView(m);
   else statsView(m);
 }
 
-var NAVS = [
-  ['study','Çalış','<path d="M12 3l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/>'],
-  ['add','Ekle','<path d="M12 5v14M5 12h14"/>'],
-  ['list','Kartlar','<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 10h10M7 14h6"/>'],
-  ['stats','Durum','<path d="M5 20V10M12 20V4M19 20v-7"/>']
-];
-function renderNav(){
-  document.getElementById('nav').innerHTML = NAVS.map(function(n){
-    return '<button class="'+(view===n[0]?'on':'')+'" data-go="'+n[0]+'">'+
-      '<svg viewBox="0 0 24 24">'+n[2]+'</svg><span>'+n[1]+'</span><span class="d"></span></button>';
-  }).join('');
+/* ---------- calis ---------- */
+function kademeBar(){
+  var bi=batchInfo();
+  if(!bi.size) return '';
+  var pct=Math.round(bi.done/bi.size*100);
+  return '<div class="kademe"><div class="t">'+
+    '<span>Kademe '+(bi.i+1)+' — '+bi.done+'/'+bi.size+' ezberlendi</span>'+
+    '<span>'+(bi.locked?bi.locked+' kelime kilitli':bi.allDone?'hepsi açık':'sıradaki kademe kilitli')+'</span>'+
+    '</div><div class="track"><div class="fill" style="width:'+pct+'%"></div></div></div>';
 }
-
-/* ---- çalış ---- */
 function study(m){
-  var all = myCards();
-  if (!all.length){
-    m.innerHTML = '<div class="empty"><p>Bu deste boş. Çalışmaya başlamak için birkaç kelime ekle.</p>'+
-      '<button class="b-solid" data-go="add" style="margin-top:16px">Kelime ekle</button></div>';
-    return;
-  }
-  if (!queue.length) build();
-  var c = S.cards.filter(function(x){ return x.id===queue[0]; })[0];
-
-  if (!c){
-    var next = all.filter(function(x){ return x.status==='review'; })
-                  .sort(function(a,b){ return a.due-b.due; })[0];
-    var kalan = next ? Math.max(1, Math.ceil((next.due-Date.now())/DAY)) : null;
-    m.innerHTML = '<div class="empty">'+
-      '<div style="font-family:var(--serif);font-size:26px;color:var(--text);margin-bottom:10px">Bugünlük bitti</div>'+
-      '<p>'+(doneCount? 'Bu oturumda '+doneCount+' kart çalıştın. ':'')+
-      (kalan? 'Sıradaki tekrar '+kalan+' gün sonra.':'Yeni kart eklersen hemen devam edebilirsin.')+'</p>'+
-      '<div class="row" style="justify-content:center;margin-top:18px">'+
-      '<button class="b-ghost" data-act="again-session">Baştan çalış</button>'+
-      '<button class="b-solid" data-go="add">Kelime ekle</button></div></div>';
-    return;
-  }
-
-  var st = counts(all);
-  var face = S.reverse ? c.back : c.front;
-  var rev  = S.reverse ? c.front : c.back;
-
-  m.innerHTML =
-   '<div class="meta"><span>Sırada '+queue.length+' kart</span>'+
-   '<span><span style="color:var(--brass)">'+st.yeni+' yeni</span> &nbsp; '+
-   '<span style="color:var(--mint)">'+st.tekrar+' tekrar</span></span></div>'+
-   '<div class="stage" id="stage"><div class="card'+(flipped?' back':'')+'" id="card">'+
-     '<div class="face"><div class="word">'+esc(face)+'</div>'+
-       '<div class="hint">Çevirmek için dokun</div></div>'+
-     '<div class="face b"><div class="word sm">'+esc(rev)+'</div>'+
-       (c.example? '<div class="ex">'+esc(c.example)+'</div>':'')+
-       (deck().lang? '<button class="say" data-act="say">Dinle</button>':'')+
-     '</div>'+
-   '</div></div>'+
-   (flipped
-     ? '<div class="grades">'+
-       g('again','g1','Bilemedim',ivLabel(c,'again'))+
-       g('good','g2','Zorlandım',ivLabel(c,'good'))+
-       g('easy','g3','Biliyordum',ivLabel(c,'easy'))+'</div>'
-     : '<button class="b-solid b-wide" style="margin-top:14px" data-act="flip">Cevabı göster</button>');
-
-  swipe(document.getElementById('stage'), c);
+  var all=myCards();
+  if(!all.length){ m.innerHTML='<div class="empty"><p>Bu deste boş. Çalışmaya başlamak için birkaç kelime ekle.</p>'+
+    '<button class="b-solid" data-go="add" style="margin-top:16px">Kelime ekle</button></div>'; return; }
+  if(!queue.length) build();
+  var c=cur();
+  if(!c) return doneScreen(m, all);
+  var st=counts(all);
+  var head='<div class="modes">'+MODES.map(function(x){
+      return '<button class="'+(S.mode===x[0]?'on':'')+'" data-mode="'+x[0]+'">'+x[1]+'</button>';}).join('')+'</div>'+
+    kademeBar()+
+    '<div class="meta"><span>Sırada '+queue.length+' kart</span><span>'+
+    '<span style="color:var(--brass)">'+st.yeni+' yeni</span> &nbsp; '+
+    '<span style="color:var(--mint)">'+st.tekrar+' tekrar</span></span></div>';
+  var body = S.mode==='yaz' ? paneYaz(c) : S.mode==='dinle' ? paneDinle(c)
+           : S.mode==='harf' ? paneHarf(c) : paneKart(c);
+  m.innerHTML=head+body;
+  if(S.mode==='kart') swipe(document.getElementById('stage'));
+  if(S.mode==='yaz'&&!shown){ var i=document.getElementById('typed'); if(i) i.focus(); }
+  if(S.mode==='dinle'&&!shown) speak(c.front);
 }
-function g(grade, cls, label, hint){
-  return '<button class="g '+cls+'" data-grade="'+grade+'"><b>'+label+'</b><i>'+hint+'</i></button>';
+function doneScreen(m, all){
+  var bi=batchInfo();
+  var next=all.filter(function(x){return x.status==='review';}).sort(function(a,b){return a.due-b.due;})[0];
+  var kalan=next?Math.max(1,Math.ceil((next.due-Date.now())/DAY)):null;
+  m.innerHTML='<div class="empty">'+
+    '<div style="font-family:var(--serif);font-size:26px;color:var(--text);margin-bottom:10px">Bugünlük bitti</div>'+
+    '<p>'+(doneCount?'Bu oturumda '+doneCount+' kart çalıştın. ':'')+
+    (kalan?'Sıradaki tekrar '+kalan+' gün sonra.':'')+'</p>'+
+    (bi.locked?'<p style="margin-top:10px">Kademe '+(bi.i+1)+' bitince '+bi.locked+' kelime daha açılacak. '+
+      (bi.size-bi.done)+' kelime kaldı.</p>':'')+
+    '<div class="row" style="justify-content:center;margin-top:18px">'+
+    '<button class="b-ghost" data-act="recap">Kademeyi tazele</button>'+
+    '<button class="b-solid" data-go="add">Kelime ekle</button></div></div>';
 }
 function counts(all){
-  var now = Date.now();
-  return {
-    total: all.length,
-    yeni: all.filter(function(c){ return c.status==='new'; }).length,
-    ogren: all.filter(function(c){ return c.status==='learning'; }).length,
-    tekrar: all.filter(function(c){ return c.status==='review' && c.due<=now; }).length,
-    oturmus: all.filter(function(c){ return c.status==='review' && c.interval>=21; }).length
-  };
+  var now=Date.now();
+  return { total:all.length,
+    yeni:all.filter(function(c){return c.status==='new';}).length,
+    ogren:all.filter(function(c){return c.status==='learning';}).length,
+    tekrar:all.filter(function(c){return c.status==='review'&&c.due<=now;}).length,
+    ezber:all.filter(ezber).length };
 }
-/* kaydırma: sağa = biliyordum, sola = bilemedim */
-function swipe(el, card){
-  if (!el) return;
-  var x0=0, y0=0, dx=0, dy=0, on=false;
-  el.addEventListener('touchstart', function(e){
-    var t = e.touches[0]; x0=t.clientX; y0=t.clientY; dx=0; dy=0; on=true;
-    el.firstChild.style.transition='none';
-  }, {passive:true});
-  el.addEventListener('touchmove', function(e){
-    if(!on) return; var t=e.touches[0]; dx=t.clientX-x0; dy=t.clientY-y0;
-    if (!flipped || Math.abs(dx) < Math.abs(dy)) return;
-    el.firstChild.style.transform = 'rotateY('+(flipped?180:0)+'deg) translateX('+(flipped?-dx:dx)+'px) rotate('+(dx/28)+'deg)';
-    el.firstChild.style.opacity = String(1 - Math.min(.55, Math.abs(dx)/420));
-  }, {passive:true});
-  el.addEventListener('touchend', function(){
-    if(!on) return; on=false;
-    var c = el.firstChild;
-    c.style.transition=''; c.style.transform=''; c.style.opacity='';
-    if (flipped && Math.abs(dx) > 90 && Math.abs(dx) > Math.abs(dy)) answer(dx>0?'easy':'again');
-  });
+function g(grade,cls,label,hint){
+  return '<button class="g '+cls+'" data-grade="'+grade+'"><b>'+label+'</b><i>'+hint+'</i></button>';
+}
+function grades3(c){
+  return '<div class="grades">'+g('again','g1','Bilemedim',ivLabel(c,'again'))+
+    g('good','g2','Zorlandım',ivLabel(c,'good'))+g('easy','g3','Biliyordum',ivLabel(c,'easy'))+'</div>';
+}
+function gradesAfterCheck(c,ok){
+  if(!ok) return '<button class="b-solid b-wide" style="margin-top:12px" data-grade="again">Devam</button>';
+  return '<div class="grades two">'+g('good','g2','Zorlandım',ivLabel(c,'good'))+
+    g('easy','g3','Biliyordum',ivLabel(c,'easy'))+'</div>';
+}
+function simge(c){ return c.emoji?'<div class="simge">'+esc(c.emoji)+'</div>':''; }
+function sayBtn(c,cls){ return deck().lang?'<button class="say'+(cls?' '+cls:'')+'" data-act="say">🔊 Dinle</button>':''; }
+function sayEx(c){ return (deck().lang&&c.example)?'<button class="say mini" data-act="say-ex">Cümleyi dinle</button>':''; }
+
+/* ön yüz: simge, kelime, ses, örnek cümle */
+function paneKart(c){
+  return '<div class="stage" id="stage"><div class="card'+(flipped?' back':'')+'" id="card">'+
+    '<div class="face">'+simge(c)+'<div class="word">'+esc(askSide(c))+'</div>'+
+      sayBtn(c)+exHTML(c,S.reverse?'front-hide':'front')+sayEx(c)+
+      '<div class="hint">Çevirmek için dokun</div></div>'+
+    '<div class="face b"><div class="word sm">'+esc(ansSide(c))+'</div>'+exHTML(c,'back')+sayBtn(c)+'</div>'+
+    '</div></div>'+
+    (flipped?grades3(c):'<button class="b-solid b-wide" style="margin-top:12px" data-act="flip">Cevabı göster</button>');
+}
+function paneYaz(c){
+  var soru=S.reverse?'Yabancı karşılığını yaz':'Türkçe anlamını yaz';
+  if(!shown){
+    return '<div class="panel"><div class="ask">'+soru+'</div>'+simge(c)+
+      '<div class="word" style="margin-bottom:12px">'+esc(askSide(c))+'</div>'+
+      sayBtn(c)+exHTML(c,S.reverse?'front-hide':'front')+
+      '<input id="typed" style="margin-top:16px" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="cevabın"></div>'+
+      '<button class="b-solid b-wide" style="margin-top:12px" data-act="check">Kontrol et</button>';
+  }
+  var v = typedOK===true ? '<div class="verdict ok">Doğru.</div>'
+        : typedOK==='near' ? '<div class="verdict ok">Neredeyse — küçük bir harf farkı vardı.</div>'
+        : '<div class="verdict no">Olmadı.</div>';
+  return '<div class="panel"><div class="ask">'+esc(askSide(c))+'</div>'+
+    '<div class="answer">'+esc(ansSide(c))+'</div>'+v+exHTML(c,'back')+sayBtn(c)+'</div>'+
+    gradesAfterCheck(c, typedOK===true||typedOK==='near');
+}
+function paneDinle(c){
+  if(!deck().lang) return '<div class="panel"><div class="ask">Bu deste için seslendirme dili seçilmemiş.</div>'+
+    '<p class="note" style="color:#6E6357;max-width:320px">Üstteki klasör simgesinden desteye bir dil ata.</p></div>';
+  if(!shown){
+    return '<div class="panel"><div class="ask">Duyduğun kelimeyi hatırla</div>'+
+      '<button class="bigsay" data-act="say"><span style="font-size:30px">🔊</span><span>tekrar</span></button>'+
+      exHTML(c,'front-hide')+sayEx(c)+'</div>'+
+      '<button class="b-solid b-wide" style="margin-top:12px" data-act="flip">Cevabı göster</button>';
+  }
+  return '<div class="panel">'+simge(c)+'<div class="word sm">'+esc(c.front)+'</div>'+
+    '<div class="ask" style="margin:10px 0 0">'+esc(c.back)+'</div>'+exHTML(c,'back')+
+    '<button class="say" data-act="say">🔊 Tekrar</button></div>'+grades3(c);
+}
+function harfInit(c){
+  var target=firstAlt(ansSide(c)), chars=Array.from(target);
+  harf={ target:target,
+    slots:chars.map(function(ch){return ch.trim()===''?{sp:true}:{ch:'',from:-1};}),
+    pool:chars.filter(function(ch){return ch.trim()!=='';})
+      .map(function(ch){return {ch:ch,used:false};}).sort(function(){return Math.random()-.5;}) };
+  harfKey=c.id+S.mode+S.reverse;
+}
+function paneHarf(c){
+  if(harfKey!==c.id+S.mode+S.reverse) harfInit(c);
+  if(shown){
+    var v=typedOK?'<div class="verdict ok">Doğru.</div>':'<div class="verdict no">Olmadı.</div>';
+    return '<div class="panel"><div class="ask">'+esc(askSide(c))+'</div>'+
+      '<div class="answer">'+esc(ansSide(c))+'</div>'+v+exHTML(c,'back')+sayBtn(c)+'</div>'+
+      gradesAfterCheck(c,typedOK);
+  }
+  return '<div class="panel"><div class="ask">'+(S.reverse?'Harflerden yabancı kelimeyi kur':'Harflerden karşılığını kur')+'</div>'+
+    simge(c)+'<div class="word sm" style="margin-bottom:10px">'+esc(askSide(c))+'</div>'+
+    sayBtn(c)+exHTML(c,S.reverse?'front-hide':'front')+
+    '<div class="slots" style="margin-top:18px">'+harf.slots.map(function(s,i){
+      return s.sp?'<div class="slot sp"></div>':'<div class="slot" data-slot="'+i+'">'+esc(s.ch)+'</div>';}).join('')+'</div>'+
+    '<div class="pool">'+harf.pool.map(function(p,i){
+      return '<button class="chip'+(p.used?' used':'')+'" data-chip="'+i+'">'+esc(p.ch)+'</button>';}).join('')+'</div></div>'+
+    '<div class="row" style="margin-top:12px">'+
+    '<button class="b-ghost" style="flex:1" data-act="harf-clear">Temizle</button>'+
+    '<button class="b-ghost" style="flex:1" data-act="harf-give">Pas geç</button></div>';
+}
+function harfPlace(i){
+  if(!harf) return;
+  var p=harf.pool[i]; if(!p||p.used) return;
+  for(var s=0;s<harf.slots.length;s++){
+    if(!harf.slots[s].sp&&!harf.slots[s].ch){ harf.slots[s]={ch:p.ch,from:i}; p.used=true; break; } }
+  if(harf.slots.every(function(s){return s.sp||s.ch;})){
+    var built=harf.slots.map(function(s){return s.sp?' ':s.ch;}).join('');
+    typedOK=norm(built)===norm(harf.target); shown=true;
+    if(typedOK){ var c=cur(); if(c&&deck().lang) speak(c.front); }
+  }
+  render();
+}
+function harfPull(i){
+  if(!harf) return;
+  var s=harf.slots[i]; if(!s||s.sp||!s.ch) return;
+  if(s.from>-1) harf.pool[s.from].used=false;
+  harf.slots[i]={ch:'',from:-1}; render();
+}
+function swipe(el){
+  if(!el) return;
+  var x0=0,y0=0,dx=0,dy=0,on=false;
+  el.addEventListener('touchstart',function(e){ var t=e.touches[0];
+    x0=t.clientX; y0=t.clientY; dx=0; dy=0; on=true; el.firstChild.style.transition='none'; },{passive:true});
+  el.addEventListener('touchmove',function(e){ if(!on) return;
+    var t=e.touches[0]; dx=t.clientX-x0; dy=t.clientY-y0;
+    if(!flipped||Math.abs(dx)<Math.abs(dy)) return;
+    el.firstChild.style.transform='rotateY(180deg) translateX('+(-dx)+'px) rotate('+(dx/28)+'deg)';
+    el.firstChild.style.opacity=String(1-Math.min(.55,Math.abs(dx)/420)); },{passive:true});
+  el.addEventListener('touchend',function(){ if(!on) return; on=false;
+    var c=el.firstChild; c.style.transition=''; c.style.transform=''; c.style.opacity='';
+    if(flipped&&Math.abs(dx)>90&&Math.abs(dx)>Math.abs(dy)) answer(dx>0?'easy':'again'); });
 }
 
-/* ---- ekle ---- */
-var addMode = 'tek';
+/* ---------- ekle ---------- */
+var addMode='tek';
 function addView(m){
-  m.innerHTML =
-   '<div class="row" style="margin-bottom:18px">'+
-     '<button class="'+(addMode==='tek'?'b-solid':'b-ghost')+'" data-act="mode-tek">Tek tek</button>'+
-     '<button class="'+(addMode==='toplu'?'b-solid':'b-ghost')+'" data-act="mode-toplu">Listeden</button>'+
-   '</div>'+
+  m.innerHTML='<div class="row" style="margin-bottom:18px">'+
+    '<button class="'+(addMode==='tek'?'b-solid':'b-ghost')+'" data-act="mode-tek">Tek tek</button>'+
+    '<button class="'+(addMode==='toplu'?'b-solid':'b-ghost')+'" data-act="mode-toplu">Listeden</button></div>'+
    (addMode==='tek'
     ? '<label><span>Kelime — '+esc(deck().name)+'</span><input id="aF" placeholder="resilience" autocapitalize="none"></label>'+
+      '<button class="b-ghost b-wide" style="margin-bottom:16px" data-act="ai-fill">'+
+        (busy?'<span class="spin"></span> üretiliyor':'Yapay zekâ ile anlam, örnek, çeviri ve simge üret')+'</button>'+
       '<label><span>Anlamı</span><input id="aB" placeholder="dayanıklılık, direnç"></label>'+
-      '<label><span>Örnek cümle — isteğe bağlı</span><textarea id="aE" rows="3" placeholder="Social resilience depends on strong family ties."></textarea></label>'+
+      '<label><span>Örnek cümle</span><textarea id="aE" rows="2" placeholder="Social resilience depends on strong family ties."></textarea></label>'+
+      '<label><span>Cümlenin Türkçesi</span><textarea id="aT" rows="2" placeholder="Toplumsal dayanıklılık güçlü aile bağlarına dayanır."></textarea></label>'+
+      '<label><span>Simge — kelimeyi çağrıştıran bir emoji</span><input id="aM" maxlength="4" placeholder="🌿"></label>'+
+      '<div class="picks">'+PICKS.map(function(p){return '<button data-pick="'+p+'">'+p+'</button>';}).join('')+'</div>'+
       '<button class="b-solid b-wide" data-act="save-one">Ekle ve devam et</button>'
-    : '<label><span>Her satıra bir kelime yaz</span>'+
-      '<textarea id="aBulk" rows="10" autocapitalize="none" placeholder="resilience = dayanıklılık&#10;threshold = eşik = The threshold was lowered.&#10;advocate - savunmak"></textarea></label>'+
-      '<p class="note">Ayırıcı olarak = ; | tab ya da boşluklu tire kullanabilirsin. Üçüncü bölüm örnek cümle sayılır.</p>'+
+    : '<label><span>Her satıra bir kelime yaz</span><textarea id="aBulk" rows="10" autocapitalize="none" '+
+      'placeholder="resilience = dayanıklılık&#10;threshold = eşik = The threshold was lowered.&#10;advocate - savunmak"></textarea></label>'+
+      '<p class="note">Ayırıcı olarak = ; | tab ya da boşluklu tire kullanabilirsin. Üçüncü bölüm örnek cümle, dördüncü bölüm o cümlenin Türkçesi sayılır.</p>'+
       '<button class="b-solid b-wide" data-act="save-bulk">Listeyi ekle</button>');
 }
 function saveOne(){
-  var f = document.getElementById('aF').value.trim();
-  var b = document.getElementById('aB').value.trim();
-  var e = document.getElementById('aE').value.trim();
-  if (!f || !b){ toast('Kelime ve anlamı boş olamaz.'); return; }
-  S.cards.unshift(mk(S.active, f, b, e)); save();
-  document.getElementById('aF').value=''; document.getElementById('aB').value='';
-  document.getElementById('aE').value=''; document.getElementById('aF').focus();
-  queue = []; toast('Kart eklendi.');
+  var f=document.getElementById('aF').value.trim(), b=document.getElementById('aB').value.trim(),
+      e=document.getElementById('aE').value.trim(), em=document.getElementById('aM').value.trim(),
+      tr=document.getElementById('aT').value.trim();
+  if(!f||!b){ toast('Kelime ve anlamı boş olamaz.'); return; }
+  S.cards.unshift(mk(S.active,f,b,e,em,tr)); save(); queue=[];
+  ['aF','aB','aE','aM','aT'].forEach(function(id){ document.getElementById(id).value=''; });
+  document.getElementById('aF').focus(); toast('Kart eklendi.');
 }
 function saveBulk(){
-  var rows = document.getElementById('aBulk').value.split('\n'), n = 0;
-  for (var i=0;i<rows.length;i++){
-    var p = rows[i].trim(); if (!p) continue;
-    var parts = p.split(/\t|\s*[=;|]\s*|\s+[-–]\s+/);
-    if (parts.length < 2) continue;
-    var f = parts[0].trim(), b = parts[1].trim();
-    if (!f || !b) continue;
-    S.cards.unshift(mk(S.active, f, b, parts.slice(2).join(' ').trim())); n++;
+  var rows=document.getElementById('aBulk').value.split('\n'), n=0;
+  for(var i=0;i<rows.length;i++){
+    var p=rows[i].trim(); if(!p) continue;
+    var parts=p.split(/\t|\s*[=;|]\s*|\s+[-–]\s+/);
+    if(parts.length<2) continue;
+    var f=parts[0].trim(), b=parts[1].trim(); if(!f||!b) continue;
+    S.cards.unshift(mk(S.active,f,b,(parts[2]||'').trim(),'',parts.slice(3).join(' ').trim())); n++;
   }
-  if (!n){ toast('Hiçbir satır ayrıştırılamadı. Her satırda ayırıcı kullan.'); return; }
-  save(); queue = []; toast(n+' kart eklendi.'); go('study');
+  if(!n){ toast('Hiçbir satır ayrıştırılamadı. Her satırda ayırıcı kullan.'); return; }
+  save(); queue=[]; toast(n+' kart eklendi.'); go('study');
 }
 
-/* ---- kartlar ---- */
-var search = '';
-function listView(m){
-  var all = myCards();
-  if (!all.length){ m.innerHTML = '<div class="empty">Bu destede henüz kart yok.</div>'; return; }
-  var q = search.trim().toLocaleLowerCase('tr');
-  var f = (q ? all.filter(function(c){
-      return (c.front+' '+c.back+' '+(c.example||'')).toLocaleLowerCase('tr').indexOf(q)>-1; }) : all)
-      .sort(function(a,b){ return b.created-a.created; });
+/* ---------- yapay zeka ---------- */
+function langName(){ var d=deck(), f=LANGS.filter(function(l){return l[0]===d.lang;})[0]; return f?f[1]:'yabancı'; }
+function aiFill(){
+  if(busy) return;
+  var inp=document.getElementById('aF'), word=inp?inp.value.trim():'';
+  if(!word){ toast('Önce kelimeyi yaz.'); return; }
+  if(!S.ai.key){ toast('Durum sekmesinden API anahtarını gir.'); return; }
+  var keep={b:document.getElementById('aB').value, e:document.getElementById('aE').value,
+            m:document.getElementById('aM').value, t:document.getElementById('aT').value};
+  busy=true; render();
+  var L=langName();
+  var prompt='"'+word+'" '+L+' bir kelime ya da ifade. Bir sözlük gibi davran:\n'+
+    '1) anlam: kısa Türkçe karşılık, en fazla üç seçenek, virgülle ayrılmış.\n'+
+    '2) ornek: kelimeyi doğal biçimde kullanan tek bir '+L+' cümle, en fazla 14 kelime.\n'+
+    '3) ceviri: o cümlenin akıcı Türkçesi.\n'+
+    '4) simge: kelimeyi çağrıştıran tek bir emoji.\n'+
+    'Sadece şu biçimde JSON döndür: {"anlam":"...","ornek":"...","ceviri":"...","simge":"..."}';
+  fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',
+    headers:{'content-type':'application/json','x-api-key':S.ai.key,
+      'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+    body:JSON.stringify({model:S.ai.model,max_tokens:400,messages:[{role:'user',content:prompt}]})
+  }).then(function(r){
+    if(!r.ok) return r.text().then(function(t){ throw new Error(r.status+' '+t.slice(0,120)); });
+    return r.json();
+  }).then(function(d){
+    var txt=(d.content||[]).filter(function(b){return b.type==='text';})
+      .map(function(b){return b.text;}).join('').replace(/```json|```/g,'').trim();
+    var o=JSON.parse(txt);
+    busy=false; render();
+    document.getElementById('aF').value=word;
+    document.getElementById('aB').value=o.anlam||keep.b;
+    document.getElementById('aE').value=o.ornek||keep.e;
+    document.getElementById('aT').value=o.ceviri||keep.t;
+    document.getElementById('aM').value=o.simge||keep.m;
+    toast('Dolduruldu. Gözden geçirmeyi unutma.');
+  }).catch(function(e){
+    busy=false; render();
+    document.getElementById('aF').value=word;
+    document.getElementById('aB').value=keep.b;
+    document.getElementById('aE').value=keep.e;
+    document.getElementById('aT').value=keep.t;
+    document.getElementById('aM').value=keep.m;
+    var msg=String(e.message||e);
+    toast(msg.indexOf('401')>-1?'API anahtarı kabul edilmedi.'
+      :msg.indexOf('404')>-1?'Model adı tanınmadı. Durum sekmesinden düzelt.'
+      :'Üretilemedi. İnternet bağlantını ve anahtarı kontrol et.');
+  });
+}
 
-  m.innerHTML =
-   '<input id="q" placeholder="'+all.length+' kart içinde ara" value="'+esc(search)+'" style="margin-bottom:14px">'+
-   '<div class="list">'+ (f.length ? f.map(function(c){
-      if (editing === c.id) return itemEdit(c);
-      return '<div class="item"><div class="grow">'+
-        '<div class="f">'+esc(c.front)+'</div><div class="k">'+esc(c.back)+'</div>'+
-        (c.example? '<div class="e">'+esc(c.example)+'</div>':'')+
-        '<div class="s">'+(c.status==='new'?'yeni':c.status==='learning'?'öğreniliyor':
-           c.interval+' günde bir · '+c.reps+' tekrar')+'</div></div>'+
-        '<button class="b-quiet" data-edit="'+c.id+'" aria-label="Düzenle">'+
-          '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 20h4L20 8l-4-4L4 16z"/></svg></button>'+
-        '<button class="b-quiet" data-del="'+c.id+'" style="color:var(--rose)" aria-label="Sil">'+
-          '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 7h16M9 7V5h6v2M7 7l1 13h8l1-13"/></svg></button>'+
-        '</div>';
-   }).join('') : '<div class="item" style="justify-content:center;color:var(--dim)">Eşleşen kart yok.</div>')+'</div>';
+/* ---------- kartlar ---------- */
+var search='';
+function listView(m){
+  var all=myCards();
+  if(!all.length){ m.innerHTML='<div class="empty">Bu destede henüz kart yok.</div>'; return; }
+  var q=search.trim().toLocaleLowerCase('tr');
+  var f=(q?all.filter(function(c){
+    return (c.front+' '+c.back+' '+(c.example||'')+' '+(c.exTr||'')).toLocaleLowerCase('tr').indexOf(q)>-1;}):all)
+    .sort(function(a,b){return b.created-a.created;});
+  m.innerHTML='<input id="q" placeholder="'+all.length+' kart içinde ara" value="'+esc(search)+'" style="margin-bottom:14px">'+
+   '<div class="list">'+(f.length?f.map(function(c){
+     if(editing===c.id) return itemEdit(c);
+     return '<div class="item">'+(c.emoji?'<div class="em">'+esc(c.emoji)+'</div>':'')+'<div class="grow">'+
+       '<div class="f">'+esc(c.front)+'</div><div class="k">'+esc(c.back)+'</div>'+
+       (c.example?'<div class="e">'+esc(c.example)+'</div>':'')+
+       (c.exTr?'<div class="e" style="font-style:normal;opacity:.75">'+esc(c.exTr)+'</div>':'')+
+       '<div class="s">'+(c.status==='new'?'yeni':c.status==='learning'?'öğreniliyor':
+          (ezber(c)?'ezberlendi · ':'')+c.interval+' günde bir · kolaylık '+(c.ease||2.5).toFixed(2))+'</div></div>'+
+       '<button class="b-quiet" data-edit="'+c.id+'" aria-label="Düzenle"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 20h4L20 8l-4-4L4 16z"/></svg></button>'+
+       '<button class="b-quiet" data-del="'+c.id+'" style="color:var(--rose)" aria-label="Sil"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 7h16M9 7V5h6v2M7 7l1 13h8l1-13"/></svg></button></div>';
+   }).join(''):'<div class="item" style="justify-content:center;color:var(--dim)">Eşleşen kart yok.</div>')+'</div>';
 }
 function itemEdit(c){
   return '<div class="item"><div class="grow">'+
     '<input id="eF" value="'+esc(c.front)+'" style="margin-bottom:8px">'+
     '<input id="eB" value="'+esc(c.back)+'" style="margin-bottom:8px">'+
     '<textarea id="eE" rows="2" placeholder="Örnek cümle" style="margin-bottom:8px">'+esc(c.example||'')+'</textarea>'+
+    '<textarea id="eT" rows="2" placeholder="Cümlenin Türkçesi" style="margin-bottom:8px">'+esc(c.exTr||'')+'</textarea>'+
+    '<input id="eM" maxlength="4" value="'+esc(c.emoji||'')+'" placeholder="Simge" style="margin-bottom:8px">'+
     '<div class="row"><button class="b-solid" data-act="commit">Kaydet</button>'+
-    '<button class="b-ghost" data-act="cancel">Vazgeç</button></div></div></div>';
+    '<button class="b-ghost" data-act="cancel">Vazgeç</button>'+
+    '<button class="b-ghost" data-act="reset-card">Sıfırla</button></div></div></div>';
 }
 
-/* ---- durum ---- */
+/* ---------- durum ---------- */
 function statsView(m){
-  var all = myCards(), st = counts(all), now = Date.now(), b = [0,0,0,0,0,0,0];
-  all.forEach(function(c){ if (c.status!=='review') return;
-    var d = Math.floor((c.due-now)/DAY); if (d>=0 && d<7) b[d]++; });
-  var max = Math.max.apply(null, b.concat([1]));
-  var tiles = [['Toplam kart',st.total,'var(--text)'],['Yeni',st.yeni,'var(--brass)'],
-    ['Öğreniliyor',st.ogren,'var(--rose)'],['Bugün tekrar',st.tekrar,'var(--mint)'],
-    ['Oturmuş (21+ gün)',st.oturmus,'var(--mint)']];
-
-  m.innerHTML =
-   '<div class="grid2" style="margin-bottom:24px">'+ tiles.map(function(t){
-     return '<div class="tile"><div class="n" style="color:'+t[2]+'">'+t[1]+'</div><div class="l">'+t[0]+'</div></div>';
-   }).join('') +'</div>'+
-   '<div class="l" style="font-size:14px;color:var(--dim);margin-bottom:12px">Önümüzdeki yedi günün tekrar yükü</div>'+
-   '<div class="bars" style="margin-bottom:26px">'+ b.map(function(n,i){
+  var all=myCards(), st=counts(all), bi=batchInfo(), now=Date.now(), b=[0,0,0,0,0,0,0];
+  all.forEach(function(c){ if(c.status!=='review') return;
+    var d=Math.floor((c.due-now)/DAY); if(d>=0&&d<7) b[d]++; });
+  var max=Math.max.apply(null,b.concat([1]));
+  var tiles=[['Toplam kart',st.total,'var(--text)'],['Ezberlenen',st.ezber,'var(--mint)'],
+    ['Yeni',st.yeni,'var(--brass)'],['Öğreniliyor',st.ogren,'var(--rose)'],
+    ['Bugün tekrar',st.tekrar,'var(--mint)'],['Açık kademe',bi.i+1,'var(--text)']];
+  m.innerHTML=
+   '<div class="grid2" style="margin-bottom:20px">'+tiles.map(function(t){
+     return '<div class="tile"><div class="n" style="color:'+t[2]+'">'+t[1]+'</div><div class="l">'+t[0]+'</div></div>';}).join('')+'</div>'+
+   kademeBar()+
+   '<div style="font-size:14px;color:var(--dim);margin:20px 0 12px">Önümüzdeki yedi günün tekrar yükü</div>'+
+   '<div class="bars" style="margin-bottom:26px">'+b.map(function(n,i){
      return '<div><div class="t" style="color:'+(n?'var(--text)':'transparent')+'">'+(n||0)+'</div>'+
      '<div class="bar" style="height:'+Math.max(3,(n/max)*74)+'px;'+(n?'background:var(--mint);opacity:.85':'')+'"></div>'+
-     '<div class="t">'+(i===0?'bugün':'+'+i)+'</div></div>'; }).join('') +'</div>'+
+     '<div class="t">'+(i===0?'bugün':'+'+i)+'</div></div>';}).join('')+'</div>'+
    '<div class="tile" style="margin-bottom:14px">'+
-     '<label style="margin-bottom:8px"><span>Bir oturumdaki yeni kart sayısı: '+S.newLimit+'</span>'+
-     '<input type="range" min="5" max="60" step="5" value="'+S.newLimit+'" id="lim" style="padding:0;accent-color:var(--brass)"></label>'+
-     '<p class="note" style="margin:0">Kartlar bildikçe daha seyrek, unuttukça daha sık gelir.</p></div>'+
+     '<label style="margin-bottom:8px"><span>Kademe boyutu: '+S.batch+' kelime</span>'+
+     '<input type="range" min="5" max="40" step="5" value="'+S.batch+'" id="lim" style="padding:0;accent-color:var(--brass)"></label>'+
+     '<p class="note" style="margin:0">Bir kademedeki kelimelerin hepsi ezberlenmeden yenileri açılmaz. '+
+     'Bir kelime, iki kez üst üste doğru bilinip tekrar aralığı 6 güne çıkınca ezberlenmiş sayılır. '+
+     'Önceki kademelerin tekrarları arada gelmeye devam eder.</p></div>'+
+   '<div class="tile" style="margin-bottom:14px">'+
+     '<div style="font-size:14px;margin-bottom:8px">Yapay zekâ ile doldurma</div>'+
+     '<label><span>Anthropic API anahtarı</span><input type="password" id="aiKey" value="'+esc(S.ai.key)+'" placeholder="sk-ant-..." autocomplete="off"></label>'+
+     '<label><span>Model</span><input id="aiModel" value="'+esc(S.ai.model)+'"></label>'+
+     '<p class="note" style="margin:0">Anahtar sadece bu telefonda saklanır, yedek dosyasına yazılmaz.</p></div>'+
    '<div class="tile">'+
      '<div style="font-size:14px;margin-bottom:4px">Yedekleme</div>'+
-     '<p class="note">Kartların bu telefonda saklanıyor. Ara sıra yedek indir; başka bir cihaza da böyle taşırsın.</p>'+
+     '<p class="note">Kartların bu telefonda saklanıyor. Ara sıra yedek indir.</p>'+
      '<div class="row"><button class="b-ghost" data-act="export">Yedeği indir</button>'+
      '<button class="b-ghost" data-act="import">Yedekten yükle</button></div>'+
      '<input type="file" id="file" accept=".json,application/json" class="hidden"></div>';
 }
-
-/* ---- deste yönetimi ---- */
-var LANGS = [['en-US','İngilizce'],['ar-SA','Arapça'],['de-DE','Almanca'],['fr-FR','Fransızca'],
-  ['es-ES','İspanyolca'],['ru-RU','Rusça'],['tr-TR','Türkçe'],['','Belirtme']];
 function deckSheet(){
-  var m = document.getElementById('main');
-  if (document.getElementById('sheet')) { render(); return; }
-  var h = '<div class="sheet" id="sheet">'+
+  if(document.getElementById('sheet')){ render(); return; }
+  document.getElementById('main').insertAdjacentHTML('afterbegin',
+    '<div class="sheet" id="sheet">'+
     '<label><span>Yeni deste adı</span><input id="dName" placeholder="ör. Akademik İngilizce"></label>'+
     '<label><span>Seslendirme dili</span><select id="dLang">'+
-      LANGS.map(function(l){ return '<option value="'+l[0]+'">'+l[1]+'</option>'; }).join('')+'</select></label>'+
+      LANGS.map(function(l){return '<option value="'+l[0]+'">'+l[1]+'</option>';}).join('')+'</select></label>'+
     '<div class="row"><button class="b-solid" data-act="deck-new">Deste oluştur</button>'+
     '<button class="b-danger" data-act="deck-del">Bu desteyi sil</button>'+
-    '<button class="b-ghost" data-act="deck-close">Kapat</button></div></div>';
-  m.insertAdjacentHTML('afterbegin', h);
+    '<button class="b-ghost" data-act="deck-close">Kapat</button></div></div>');
 }
 
-/* ============ olaylar ============ */
-document.addEventListener('click', function(e){
-  var t = e.target.closest('[data-go],[data-act],[data-grade],[data-edit],[data-del]');
-  if (!t) {
-    if (e.target.closest('#card')) { flipped = !flipped; render(); }
-    return;
-  }
-  var a = t.dataset;
-  if (a.go) return go(a.go);
-  if (a.grade) return answer(a.grade);
-  if (a.edit){ editing = a.edit; return render(); }
-  if (a.del){
-    S.cards = S.cards.filter(function(c){ return c.id!==a.del; });
-    queue = queue.filter(function(q){ return q!==a.del; }); save(); return render();
-  }
+/* ================= olaylar ================= */
+document.addEventListener('click',function(e){
+  var t=e.target.closest('[data-go],[data-act],[data-grade],[data-edit],[data-del],[data-mode],[data-chip],[data-slot],[data-pick]');
+  if(!t){ if(e.target.closest('#card')){ flipped=!flipped; render(); } return; }
+  var a=t.dataset, c;
+  if(a.go) return go(a.go);
+  if(a.mode){ S.mode=a.mode; resetCardState(); save(); return render(); }
+  if(a.pick){ var mi=document.getElementById('aM'); if(mi){ mi.value=a.pick; } return; }
+  if(a.chip!==undefined) return harfPlace(Number(a.chip));
+  if(a.slot!==undefined) return harfPull(Number(a.slot));
+  if(a.grade) return answer(a.grade);
+  if(a.edit){ editing=a.edit; return render(); }
+  if(a.del){ S.cards=S.cards.filter(function(x){return x.id!==a.del;});
+    queue=queue.filter(function(q){return q!==a.del;}); save(); return render(); }
   switch(a.act){
-    case 'flip': flipped = true; return render();
-    case 'say': e.stopPropagation();
-      var cur = S.cards.filter(function(x){ return x.id===queue[0]; })[0];
-      return cur && speak(cur.front);
-    case 'again-session': doneCount=0; build(); return render();
+    case 'flip': if(S.mode==='kart') flipped=true; else shown=true; return render();
+    case 'say': e.stopPropagation(); c=cur(); return c&&speak(c.front);
+    case 'say-ex': e.stopPropagation(); c=cur(); return c&&speak(c.example);
+    case 'check':
+      c=cur(); typedOK=checkTyped(document.getElementById('typed').value, ansSide(c)); shown=true;
+      if(typedOK&&deck().lang) speak(c.front); return render();
+    case 'harf-clear': c=cur(); harfInit(c); return render();
+    case 'harf-give': typedOK=false; shown=true; return render();
+    case 'recap':
+      var bi=batchInfo();
+      queue=bi.cards.map(function(x){return x.id;}).sort(function(){return Math.random()-.5;});
+      doneCount=0; resetCardState();
+      if(!queue.length) toast('Tazelenecek kart yok.');
+      return render();
     case 'mode-tek': addMode='tek'; return render();
     case 'mode-toplu': addMode='toplu'; return render();
+    case 'ai-fill': return aiFill();
     case 'save-one': return saveOne();
     case 'save-bulk': return saveBulk();
-    case 'commit': {
-      var c = S.cards.filter(function(x){ return x.id===editing; })[0];
-      var f = document.getElementById('eF').value.trim(), b = document.getElementById('eB').value.trim();
-      if (!f || !b){ toast('Kelime ve anlamı boş olamaz.'); return; }
+    case 'commit':
+      c=S.cards.filter(function(x){return x.id===editing;})[0];
+      var f=document.getElementById('eF').value.trim(), b=document.getElementById('eB').value.trim();
+      if(!f||!b){ toast('Kelime ve anlamı boş olamaz.'); return; }
       c.front=f; c.back=b; c.example=document.getElementById('eE').value.trim();
+      c.exTr=document.getElementById('eT').value.trim();
+      c.emoji=document.getElementById('eM').value.trim();
       editing=null; save(); return render();
-    }
+    case 'reset-card':
+      c=S.cards.filter(function(x){return x.id===editing;})[0];
+      c.ease=2.5; c.interval=0; c.reps=0; c.lapses=0; c.status='new'; c.due=Date.now();
+      editing=null; queue=[]; save(); toast('Kart baştan öğrenilecek.'); return render();
     case 'cancel': editing=null; return render();
-    case 'deck-new': {
-      var n = document.getElementById('dName').value.trim();
-      if (!n){ toast('Desteye bir ad ver.'); return; }
-      var nd = { id:uid(), name:n, lang:document.getElementById('dLang').value };
-      S.decks.push(nd); S.active = nd.id; queue=[]; save(); addMode='tek'; return go('add');
-    }
-    case 'deck-del': {
-      if (S.decks.length<=1){ toast('Son desteyi silemezsin.'); return; }
-      S.cards = S.cards.filter(function(c){ return c.deckId!==S.active; });
-      S.decks = S.decks.filter(function(d){ return d.id!==S.active; });
-      S.active = S.decks[0].id; queue=[]; save(); toast('Deste silindi.'); return go('study');
-    }
+    case 'deck-new':
+      var n=document.getElementById('dName').value.trim();
+      if(!n){ toast('Desteye bir ad ver.'); return; }
+      var nd={id:uid(),name:n,lang:document.getElementById('dLang').value};
+      S.decks.push(nd); S.active=nd.id; queue=[]; save(); addMode='tek'; return go('add');
+    case 'deck-del':
+      if(S.decks.length<=1){ toast('Son desteyi silemezsin.'); return; }
+      S.cards=S.cards.filter(function(x){return x.deckId!==S.active;});
+      S.decks=S.decks.filter(function(d){return d.id!==S.active;});
+      S.active=S.decks[0].id; queue=[]; save(); toast('Deste silindi.'); return go('study');
     case 'deck-close': return render();
-    case 'export': {
-      var blob = new Blob([JSON.stringify({decks:S.decks,cards:S.cards},null,2)],{type:'application/json'});
-      var url = URL.createObjectURL(blob), a2 = document.createElement('a');
-      a2.href = url; a2.download = 'kelimelik-yedek-'+new Date().toISOString().slice(0,10)+'.json';
+    case 'export':
+      var blob=new Blob([JSON.stringify({decks:S.decks,cards:S.cards},null,2)],{type:'application/json'});
+      var url=URL.createObjectURL(blob), a2=document.createElement('a');
+      a2.href=url; a2.download='kelimelik-yedek-'+new Date().toISOString().slice(0,10)+'.json';
       document.body.appendChild(a2); a2.click(); a2.remove();
-      setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+      setTimeout(function(){URL.revokeObjectURL(url);},1000);
       return toast('Yedek indirildi.');
-    }
     case 'import': return document.getElementById('file').click();
   }
 });
-
-document.addEventListener('change', function(e){
-  if (e.target.id === 'deckSel'){ S.active = e.target.value; queue=[]; doneCount=0; save(); render(); }
-  if (e.target.id === 'lim'){ S.newLimit = Number(e.target.value); save(); render(); }
-  if (e.target.id === 'file'){
-    var f = e.target.files[0]; if (!f) return;
-    var r = new FileReader();
-    r.onload = function(){
-      try {
-        var d = JSON.parse(r.result);
-        if (!Array.isArray(d.decks) || !Array.isArray(d.cards)) throw 0;
-        S.decks = d.decks; S.cards = d.cards; S.active = d.decks[0].id;
-        queue=[]; save(); toast('Yedek geri yüklendi.'); go('study');
-      } catch(err){ toast('Bu dosya geçerli bir Kelimelik yedeği değil.'); }
-    };
+document.addEventListener('change',function(e){
+  if(e.target.id==='deckSel'){ S.active=e.target.value; queue=[]; doneCount=0; save(); render(); }
+  if(e.target.id==='lim'){ S.batch=Number(e.target.value); queue=[]; save(); render(); }
+  if(e.target.id==='file'){
+    var f=e.target.files[0]; if(!f) return;
+    var r=new FileReader();
+    r.onload=function(){ try{
+        var d=JSON.parse(r.result);
+        if(!Array.isArray(d.decks)||!Array.isArray(d.cards)) throw 0;
+        S.decks=d.decks; S.cards=d.cards;
+        S.cards.forEach(function(c){ if(c.emoji===undefined) c.emoji=''; if(c.exTr===undefined) c.exTr=''; });
+        S.active=d.decks[0].id; queue=[]; save(); toast('Yedek geri yüklendi.'); go('study');
+      }catch(err){ toast('Bu dosya geçerli bir Kelimelik yedeği değil.'); } };
     r.readAsText(f);
   }
 });
-document.addEventListener('input', function(e){
-  if (e.target.id === 'q'){ search = e.target.value;
-    var pos = e.target.selectionStart; listView(document.getElementById('main'));
-    var q = document.getElementById('q'); q.focus(); q.setSelectionRange(pos,pos); }
+document.addEventListener('input',function(e){
+  if(e.target.id==='q'){ search=e.target.value; var pos=e.target.selectionStart;
+    listView(document.getElementById('main'));
+    var q=document.getElementById('q'); q.focus(); q.setSelectionRange(pos,pos); }
+  if(e.target.id==='aiKey'){ S.ai.key=e.target.value.trim(); save(); }
+  if(e.target.id==='aiModel'){ S.ai.model=e.target.value.trim(); save(); }
 });
-document.addEventListener('keydown', function(e){
-  if (view!=='study' || /INPUT|TEXTAREA|SELECT/.test(e.target.tagName)) return;
-  if (e.code==='Space'){ e.preventDefault(); flipped=!flipped; render(); }
-  else if (flipped && e.key==='1') answer('again');
-  else if (flipped && e.key==='2') answer('good');
-  else if (flipped && e.key==='3') answer('easy');
+document.addEventListener('keydown',function(e){
+  if(e.key==='Enter'&&e.target.id==='typed'){ e.preventDefault();
+    var c=cur(); typedOK=checkTyped(e.target.value,ansSide(c)); shown=true;
+    if(typedOK&&deck().lang) speak(c.front); render(); return; }
+  if(view!=='study'||/INPUT|TEXTAREA|SELECT/.test(e.target.tagName)) return;
+  if(e.code==='Space'){ e.preventDefault(); if(S.mode==='kart') flipped=!flipped; else shown=true; render(); }
+  else if((flipped||shown)&&e.key==='1') answer('again');
+  else if((flipped||shown)&&e.key==='2') answer('good');
+  else if((flipped||shown)&&e.key==='3') answer('easy');
 });
-document.getElementById('deckBtn').addEventListener('click', deckSheet);
-document.getElementById('revBtn').addEventListener('click', function(){
-  S.reverse = !S.reverse; queue=[]; flipped=false; save(); render();
-  toast(S.reverse ? 'Önce anlam gösterilecek.' : 'Önce kelime gösterilecek.');
+document.getElementById('deckBtn').addEventListener('click',deckSheet);
+document.getElementById('revBtn').addEventListener('click',function(){
+  S.reverse=!S.reverse; queue=[]; resetCardState(); save(); render();
+  toast(S.reverse?'Önce anlam gösterilecek.':'Önce kelime gösterilecek.');
 });
 
 load(); render();
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function(){ navigator.serviceWorker.register('sw.js').catch(function(){}); });
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){ navigator.serviceWorker.register('sw.js').catch(function(){}); });
 }
 </script>
 </body>
