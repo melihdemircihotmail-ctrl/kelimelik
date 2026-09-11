@@ -189,9 +189,10 @@
 <script>
 /* ================= veri ================= */
 var DAY=86400000, KEY='kelimelik-v1';
+var VARMODEL={ gemini:'gemini-2.5-flash', anthropic:'claude-haiku-4-5-20251001' };
 var S={ decks:[], cards:[], active:null, batch:20, reverse:false, mode:'akilli', goal:20,
         streak:{gun:'',bugun:0,seri:0,sonHedef:''},
-        ai:{key:'',model:'claude-haiku-4-5-20251001'} };
+        ai:{saglayici:'gemini',key:'',model:'gemini-2.5-flash'} };
 var view='study', queue=[], flipped=false, shown=false, doneCount=0, editing=null;
 var typedOK=null, yazilan='', harf=null, harfKey='', mcq=null, mcqKey='';
 var busy=false, tanitildi={}, ipucu=0, retype=false;
@@ -212,7 +213,11 @@ function load(){
       S.batch=d.batch||d.newLimit||20; S.reverse=!!d.reverse; S.mode=d.mode||'akilli';
       S.goal=d.goal||20;
       if(d.streak) S.streak=d.streak;
-      if(d.ai){ S.ai.key=d.ai.key||''; S.ai.model=d.ai.model||S.ai.model; } }
+      if(d.ai){
+        S.ai.key=d.ai.key||'';
+        S.ai.saglayici=d.ai.saglayici || ((d.ai.key||'').indexOf('sk-ant')===0?'anthropic':'gemini');
+        S.ai.model=d.ai.model || VARMODEL[S.ai.saglayici];
+      } }
   }catch(e){}
   S.cards.forEach(function(c){
     if(c.emoji===undefined) c.emoji='';
@@ -733,6 +738,14 @@ function enrichBar(showIdle){
     '<button class="b-solid b-wide" style="padding:10px;margin-top:4px" data-act="enr-start">Yapay zekâ ile hepsini tamamla</button></div>';
 }
 function apiCagir(prompt,maxTok){
+  return S.ai.saglayici==='gemini' ? geminiCagir(prompt,maxTok) : claudeCagir(prompt,maxTok);
+}
+function jsonCoz(txt){
+  txt=String(txt||'').replace(/```json|```/g,'').trim();
+  if(!txt) throw new Error('bos yanit');
+  return JSON.parse(txt);
+}
+function claudeCagir(prompt,maxTok){
   return fetch('https://api.anthropic.com/v1/messages',{
     method:'POST',
     headers:{'content-type':'application/json','x-api-key':S.ai.key,
@@ -742,10 +755,35 @@ function apiCagir(prompt,maxTok){
     if(!r.ok) return r.text().then(function(t){ throw new Error(r.status+' '+t.slice(0,100)); });
     return r.json();
   }).then(function(d){
-    var txt=(d.content||[]).filter(function(b){return b.type==='text';})
-      .map(function(b){return b.text;}).join('').replace(/```json|```/g,'').trim();
-    return JSON.parse(txt);
+    return jsonCoz((d.content||[]).filter(function(b){return b.type==='text';})
+      .map(function(b){return b.text;}).join(''));
   });
+}
+function geminiCagir(prompt,maxTok){
+  var url='https://generativelanguage.googleapis.com/v1beta/models/'+
+    encodeURIComponent(S.ai.model)+':generateContent';
+  return fetch(url,{
+    method:'POST',
+    headers:{'content-type':'application/json','x-goog-api-key':S.ai.key},
+    body:JSON.stringify({ contents:[{parts:[{text:prompt}]}],
+      generationConfig:{ maxOutputTokens:maxTok||1200, temperature:0.7,
+        responseMimeType:'application/json' } })
+  }).then(function(r){
+    if(!r.ok) return r.text().then(function(t){ throw new Error(r.status+' '+t.slice(0,100)); });
+    return r.json();
+  }).then(function(d){
+    var c=(d.candidates||[])[0];
+    return jsonCoz(((c&&c.content&&c.content.parts)||[]).map(function(x){return x.text||'';}).join(''));
+  });
+}
+/* ucretsiz katmanin dakikalik istek siniri dar, gruplar arasi daha uzun bekliyoruz */
+function bekleme(){ return S.ai.saglayici==='gemini' ? 6500 : 500; }
+function apiHata(e){
+  var m=String(e&&e.message||e);
+  if(m.indexOf('401')>-1||m.indexOf('403')>-1) return 'API anahtarı kabul edilmedi.';
+  if(m.indexOf('429')>-1) return 'Ücretsiz katmanın sınırına takıldın. Birkaç dakika sonra tekrar dene.';
+  if(m.indexOf('404')>-1) return 'Model adı tanınmadı. Durum sekmesinden düzelt.';
+  return 'İşlem tamamlanamadı. Bağlantını ve anahtarı kontrol et.';
 }
 function enrichAsk(grp){
   var L=langName();
@@ -761,7 +799,7 @@ function enrichAsk(grp){
 }
 function enrichDene(grp,hak){
   return enrichAsk(grp).catch(function(e){
-    if(hak>0) return new Promise(function(r){setTimeout(r,1500);}).then(function(){ return enrichDene(grp,hak-1); });
+    if(hak>0) return new Promise(function(r){setTimeout(r,bekleme()+2000);}).then(function(){ return enrichDene(grp,hak-1); });
     throw e;
   });
 }
@@ -790,7 +828,7 @@ function enrichRun(){
         if(!c.emoji&&o.simge) c.emoji=String(o.simge).trim().slice(0,4);
       });
     }).catch(function(){ enr.fail+=grp.length; })
-    .then(function(){ enr.done=Math.min(enr.total,enr.done+grp.length); save(); render(); setTimeout(sonraki,400); });
+    .then(function(){ enr.done=Math.min(enr.total,enr.done+grp.length); save(); render(); setTimeout(sonraki,bekleme()); });
   }
   sonraki();
 }
@@ -898,8 +936,7 @@ function metinCikar(){
     if(zaten) toast(zaten+' kelime zaten destende, onların işareti kaldırıldı.');
   }).catch(function(e){
     busy=false; render();
-    var msg=String(e.message||e);
-    toast(msg.indexOf('401')>-1?'API anahtarı kabul edilmedi.':'Metin işlenemedi. Bağlantını kontrol et.');
+    toast(apiHata(e));
   });
 }
 function metinEkle(){
@@ -941,11 +978,18 @@ function aiFill(){
     document.getElementById('aE').value=keep.e;
     document.getElementById('aT').value=keep.t;
     document.getElementById('aM').value=keep.m;
-    var msg=String(e.message||e);
-    toast(msg.indexOf('401')>-1?'API anahtarı kabul edilmedi.'
-      :msg.indexOf('404')>-1?'Model adı tanınmadı. Durum sekmesinden düzelt.'
-      :'Üretilemedi. İnternet bağlantını ve anahtarı kontrol et.');
+    toast(apiHata(e));
   });
+}
+
+function aiTest(){
+  if(busy) return;
+  if(!S.ai.key){ toast('Önce anahtarı gir.'); return; }
+  busy=true; render();
+  apiCagir('Sadece şu JSON\'u döndür: {"durum":"tamam"}',100)
+    .then(function(o){ busy=false; render();
+      toast(o&&o.durum?'Bağlantı çalışıyor.':'Yanıt geldi ama biçim beklendiği gibi değil.'); })
+    .catch(function(e){ busy=false; render(); toast(apiHata(e)); });
 }
 
 /* ---------- kartlar ---------- */
@@ -1020,10 +1064,21 @@ function statsView(m){
      '<input type="range" min="5" max="80" step="5" value="'+S.goal+'" id="hedef" style="padding:0;accent-color:var(--brass)"></label>'+
      '<p class="note" style="margin:0">Bir kademedeki kelimelerin hepsi ezberlenmeden yenileri açılmaz. Bir kelime iki kez üst üste doğru bilinip aralığı 6 güne çıkınca ezberlenmiş sayılır.</p></div>'+
    '<div class="tile" style="margin-bottom:14px">'+
-     '<div style="font-size:14px;margin-bottom:8px">Yapay zekâ</div>'+
-     '<label><span>Anthropic API anahtarı</span><input type="password" id="aiKey" value="'+esc(S.ai.key)+'" placeholder="sk-ant-..." autocomplete="off"></label>'+
+     '<div style="font-size:14px;margin-bottom:8px">Yapay zekâ — isteğe bağlı</div>'+
+     '<div class="modes" style="margin-bottom:14px">'+
+       '<button class="'+(S.ai.saglayici==='gemini'?'on':'')+'" data-sagla="gemini">Gemini · ücretsiz</button>'+
+       '<button class="'+(S.ai.saglayici==='anthropic'?'on':'')+'" data-sagla="anthropic">Claude · ücretli</button>'+
+     '</div>'+
+     '<label><span>API anahtarı</span><input type="password" id="aiKey" value="'+esc(S.ai.key)+'" placeholder="'+
+       (S.ai.saglayici==='gemini'?'AIza...':'sk-ant-...')+'" autocomplete="off"></label>'+
      '<label><span>Model</span><input id="aiModel" value="'+esc(S.ai.model)+'"></label>'+
-     '<p class="note" style="margin:0">Anahtar sadece bu telefonda saklanır, yedek dosyasına yazılmaz.</p></div>'+
+     '<button class="b-ghost b-wide" style="margin-bottom:10px" data-act="ai-test">'+
+       (busy?'<span class="spin"></span> sınanıyor':'Bağlantıyı sına')+'</button>'+
+     '<p class="note" style="margin:0">'+
+     (S.ai.saglayici==='gemini'
+       ? 'Anahtarı aistudio.google.com adresinden ücretsiz alırsın, kart istemez. Dakikada ve günde istek sınırı var, uzun listelerde biraz yavaş ilerler. Google ücretsiz katmandaki metinleri kendi modellerini geliştirmek için kullanabiliyor; gizli bir metin yapıştırma.'
+       : 'Anahtarı console.anthropic.com adresinden alırsın, önceden kredi yüklemek gerekir. Hızlı ve sınırsıza yakın çalışır, gönderdiğin metinler eğitimde kullanılmaz.')+
+     ' Anahtar sadece bu telefonda saklanır, yedek dosyasına yazılmaz.</p></div>'+
    '<div class="tile">'+
      '<div style="font-size:14px;margin-bottom:4px">Yedekleme</div>'+
      '<p class="note">Kartların bu telefonda saklanıyor. Ara sıra yedek indir.</p>'+
@@ -1051,6 +1106,9 @@ document.addEventListener('click',function(e){
   if(a.go) return go(a.go);
   if(a.mode){ S.mode=a.mode; resetCardState(); save(); return render(); }
   if(a.filtre){ filtre=a.filtre; return render(); }
+  if(a.sagla){ S.ai.saglayici=a.sagla; S.ai.model=VARMODEL[a.sagla]; S.ai.key=''; save();
+    toast(a.sagla==='gemini'?'Gemini seçildi. Anahtarı yeniden gir.':'Claude seçildi. Anahtarı yeniden gir.');
+    return render(); }
   if(a.pick){ var mi=document.getElementById('aM'); if(mi) mi.value=a.pick; return; }
   if(a.sec!==undefined){ var x=cikar.liste[Number(a.sec)]; x.sec=!x.sec; return render(); }
   if(a.opt!==undefined){
@@ -1125,6 +1183,7 @@ document.addEventListener('click',function(e){
     case 'enr-start': return enrichRun();
     case 'enr-stop': enr.cancel=true; return toast('Sıradaki grup bitince duracak.');
     case 'ai-fill': return aiFill();
+    case 'ai-test': return aiTest();
     case 'save-one': return saveOne();
     case 'save-bulk': return saveBulk();
     case 'commit':

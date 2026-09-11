@@ -1,4 +1,4 @@
-KELİMELİK — sürüm 6
+KELİMELİK — sürüm 7
 
 Kurulum
   Bu dosyaları GitHub Pages ya da app.netlify.com/drop ile yayına al,
@@ -6,7 +6,12 @@ Kurulum
   iPhone: Safari > Paylaş > Ana Ekrana Ekle
   Android: Chrome > üç nokta > Uygulamayı yükle
 
-Sürüm 6'da yeni olanlar
+Sürüm 7'de yeni olanlar
+  - Yapay zekâ için iki seçenek: Gemini (ücretsiz) ya da Claude (ücretli)
+  - Durum sekmesinde "Bağlantıyı sına" düğmesi
+  - Ücretsiz katmanın istek sınırına göre otomatik yavaşlama
+
+Sürüm 6'da gelenler
   - AKILLI MOD: soru tipini kartın olgunluğuna göre kendisi seçer
       yeni kelime      -> tanıtım ekranı (önce öğret, sonra sor)
       yeni tanışılmış   -> çoktan seçmeli
@@ -35,11 +40,20 @@ Kademe nasıl çalışıyor
   Önceki grupların zamanı gelen tekrarları arada gelmeye devam eder.
 
 Yapay zekâ (isteğe bağlı)
-  Durum sekmesinde Anthropic API anahtarını gir. Üç yerde kullanılır:
-  tek kelime doldurma, toplu listeyi tamamlama, metinden kelime çıkarma.
+  Üç yerde kullanılır: tek kelime doldurma, toplu listeyi tamamlama,
+  metinden kelime çıkarma.
+
+  GEMINI (ücretsiz)
+    aistudio.google.com > Get API key. Kart istemez.
+    Dakikada ve günde istek sınırı var, uzun listeler yavaş ilerler.
+    Google ücretsiz katmandaki metinleri eğitimde kullanabiliyor.
+  CLAUDE (ücretli)
+    console.anthropic.com > API Keys. Önceden kredi yüklemek gerekir.
+    Hızlı, sınıra takılmaz, metinler eğitimde kullanılmaz.
+
   Anahtar sadece telefonda saklanır, yedek dosyasına yazılmaz.
   Boş bırakırsan uygulama tamamen çevrimdışı çalışır.
 
 Güncelleme
   Dosyaları değiştirdiğinde sw.js içindeki CACHE değerini artır
-  (kelimelik-v6 -> kelimelik-v7). Yoksa telefon eski sürümü gösterir.
+  (kelimelik-v7 -> kelimelik-v8). Yoksa telefon eski sürümü gösterir.
